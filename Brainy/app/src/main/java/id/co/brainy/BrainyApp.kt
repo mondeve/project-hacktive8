@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import id.co.brainy.ui.screen.auth.LoginScreen
 import id.co.brainy.ui.screen.auth.RegisterScreen
+import id.co.brainy.ui.screen.home.HomeScreen
 
 @Composable
 fun BrainyApp(){
@@ -19,6 +20,10 @@ fun BrainyApp(){
         composable("register"){
             RegisterScreen(navController)
         }
+        composable("home"){
+            HomeScreen()
+        }
+
     }
 
 }

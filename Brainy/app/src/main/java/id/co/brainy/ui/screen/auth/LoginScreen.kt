@@ -92,6 +92,7 @@ fun LoginScreen(
             onClick = {
                 if (email.isNotBlank() && password.isNotBlank()) {
                     println("Login success with email: $email")
+                    navController.navigate("home")
                 } else {
                     println("Email or password is empty")
                 }
