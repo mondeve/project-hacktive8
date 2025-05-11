@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -27,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import id.co.brainy.R
+import id.co.brainy.ui.components.CardMyTask
 import id.co.brainy.ui.components.CardTaskItem
 import id.co.brainy.ui.theme.BrainyTheme
 
@@ -96,6 +99,24 @@ fun HomeScreen() {
             )
         }
 
+        CardMyTask(
+            title = "Tugas harian",
+            category = "Academy",
+            desc = "Menyala tugas",
+            time = "10 hours"
+        )
+
+
+        FloatingActionButton(
+            onClick = {
+
+            },
+            containerColor = MaterialTheme.colorScheme.tertiary,
+        ) {
+            Icon(
+                Icons.Default.Add, "create task"
+            )
+        }
 
 
 

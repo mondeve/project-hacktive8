@@ -27,12 +27,13 @@ import androidx.compose.ui.unit.dp
 fun CardMyTask(
     title: String,
     category: String,
+    desc: String,
     time: String
 ) {
     ElevatedCard(
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        ),
+//        elevation = CardDefaults.cardElevation(
+//            defaultElevation = 6.dp
+//        ),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.secondary.copy(
                 alpha = 0.6f
@@ -40,7 +41,7 @@ fun CardMyTask(
         ),
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp)
+            .height(150.dp)
     ) {
         Column(
             modifier = Modifier
@@ -55,7 +56,7 @@ fun CardMyTask(
             ) {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleLarge.copy(
+                    style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.SemiBold,
                         color = Color.White,
                     )
@@ -75,8 +76,8 @@ fun CardMyTask(
             }
 
             Text(
-                text = time,
-                style = MaterialTheme.typography.titleLarge.copy(
+                text = desc,
+                style = MaterialTheme.typography.bodySmall.copy(
                     fontWeight = FontWeight.SemiBold,
                     color = Color.White
                 ),
@@ -86,7 +87,7 @@ fun CardMyTask(
             )
 
             Text(
-                text = "5 Days left",
+                text = time,
                 modifier = Modifier
                     .align(Alignment.End)
                     .clip(RoundedCornerShape(12.dp))
@@ -114,6 +115,7 @@ fun CardMyTaskPreview() {
     CardMyTask(
         title = "Task",
         category = "Category",
-        time = "this time"
+        time = "this time",
+        desc = "this is description"
     )
 }
