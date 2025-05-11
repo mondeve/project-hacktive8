@@ -17,11 +17,13 @@ import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -33,98 +35,102 @@ import id.co.brainy.ui.components.CardMyTask
 import id.co.brainy.ui.components.CardTaskItem
 import id.co.brainy.ui.theme.BrainyTheme
 
+
 @Composable
 fun HomeScreen() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp),
-    ) {
-        HeaderHome("Hi Mondo")
-        Spacer(modifier = Modifier.height(20.dp))
-        CardTaskItem(
-            title = "Task",
-            count = 10,
-            modifier = Modifier
-                .clickable {
-
-                }
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            CardTaskItem(
-                title = "Work",
-                count = 5,
-                modifier = Modifier
-                    .weight(1f)
-                    .clickable {
-
-                    }
-            )
-            CardTaskItem(
-                title = "Academy",
-                count = 5,
-                modifier = Modifier
-                    .weight(1f)
-                    .clickable {
-
-                    }
-            )
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    println("FAB Tambah Tugas Diklik!")
+                },
+                containerColor = MaterialTheme.colorScheme.tertiary,
+                contentColor = Color.Black
+            ) {
+                Icon(Icons.Filled.Add, "Tambah Tugas Baru")
+            }
         }
-//        Spacer(modifier = Modifier.height(16.dp))
-        Row(
+    ) { innerPading ->
+
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 16.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .fillMaxSize()
+                .padding(innerPading)
+                .padding(horizontal = 16.dp),
         ) {
-            Text(
-                text = "On Going",
-                style = MaterialTheme.typography.titleMedium.copy(
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.tertiary
+            HeaderHome("Hi Mondo")
+            Spacer(modifier = Modifier.height(20.dp))
+            CardTaskItem(
+                title = "Task",
+                count = 10,
+                modifier = Modifier
+                    .clickable {
+
+                    }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                CardTaskItem(
+                    title = "Work",
+                    count = 5,
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+
+                        }
                 )
+                CardTaskItem(
+                    title = "Academy",
+                    count = 5,
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+
+                        }
+                )
+            }
+//        Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp, vertical = 16.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                Text(
+                    text = "On Going",
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.SemiBold,
+                        color = MaterialTheme.colorScheme.tertiary
+                    )
+                )
+                Text(
+                    text = "See All",
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontSize = 14.sp,
+                    ),
+                    textDecoration = TextDecoration.Underline
+                )
+            }
+
+            CardMyTask(
+                title = "Tugas harian",
+                category = "Academy",
+                desc = "Menyala tugas",
+                time = "10 hours"
             )
-            Text(
-                text = "See All",
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontSize = 14.sp,
-                ),
-                textDecoration = TextDecoration.Underline
-            )
+
+
         }
-
-        CardMyTask(
-            title = "Tugas harian",
-            category = "Academy",
-            desc = "Menyala tugas",
-            time = "10 hours"
-        )
-
-
-        FloatingActionButton(
-            onClick = {
-
-            },
-            containerColor = MaterialTheme.colorScheme.tertiary,
-        ) {
-            Icon(
-                Icons.Default.Add, "create task"
-            )
-        }
-
-
-
     }
 }
 
 @Composable
-fun HeaderHome(user: String){
+fun HeaderHome(user: String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -159,8 +165,6 @@ fun HeaderHome(user: String){
         )
     }
 }
-
-
 
 
 @Preview(showBackground = true)
