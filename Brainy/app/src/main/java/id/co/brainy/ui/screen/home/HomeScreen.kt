@@ -14,8 +14,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ExitToApp
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -30,6 +30,8 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import id.co.brainy.R
 import id.co.brainy.ui.components.CardMyTask
 import id.co.brainy.ui.components.CardTaskItem
@@ -37,12 +39,14 @@ import id.co.brainy.ui.theme.BrainyTheme
 
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    navController: NavController
+) {
     Scaffold(
         floatingActionButton = {
-            FloatingActionButton(
+            LargeFloatingActionButton(
                 onClick = {
-                    println("FAB Tambah Tugas Diklik!")
+                    navController.navigate("task")
                 },
                 containerColor = MaterialTheme.colorScheme.tertiary,
                 contentColor = Color.Black
@@ -174,7 +178,10 @@ fun HomeScreenPreview() {
         Surface(
             modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
         ) {
-            HomeScreen()
+            val navController = rememberNavController()
+            HomeScreen(
+                navController = navController
+            )
         }
     }
 }
