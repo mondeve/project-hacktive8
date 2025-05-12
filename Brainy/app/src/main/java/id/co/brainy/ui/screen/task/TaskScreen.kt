@@ -1,26 +1,21 @@
 package id.co.brainy.ui.screen.task
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -31,13 +26,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -45,6 +37,7 @@ import androidx.navigation.compose.rememberNavController
 import id.co.brainy.ui.components.ButtonCategory
 import id.co.brainy.ui.components.DateTime
 import id.co.brainy.ui.components.convertMillisToDate
+import id.co.brainy.ui.components.headerTask
 import id.co.brainy.ui.theme.BrainyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,7 +50,7 @@ fun TaskScreen(
     var description by remember { mutableStateOf("") }
 
     var selectCategory by remember { mutableStateOf<String?>(null) }
-    val categories = listOf("Work", "Academy", "+")
+    val categories = listOf("Work", "Academy")
 
     var selectedDate by remember { mutableStateOf("") }
     val timePickerState = rememberTimePickerState(is24Hour = true)
@@ -65,6 +58,7 @@ fun TaskScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(horizontal = 24.dp, vertical = 16.dp),
 
         ) {
@@ -102,23 +96,40 @@ fun TaskScreen(
             timePickerState = timePickerState
         )
         TitleTextField("Category")
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            modifier = Modifier.fillMaxWidth()
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp, bottom = 22.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(categories) { category ->
+            categories.forEach { category ->
                 ButtonCategory(
                     btnTitle = category,
-                    onCategoryClick = { clickedCategory ->
-                        selectCategory = clickedCategory
+                    onCategoryClick = { selected ->
+                        selectCategory = selected
                     },
-                    isSelected = category == selectCategory
+                    isSelected = selectCategory == category
                 )
             }
         }
+//        Lazy grid dengan Btn + category
+//        LazyGrid(
+//            columns = GridCells.Fixed(2),
+//            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 4.dp),
+//            horizontalArrangement = Arrangement.spacedBy(8.dp),
+//            verticalArrangement = Arrangement.spacedBy(8.dp),
+//            modifier = Modifier.fillMaxWidth()
+//        ) {
+//            items(categories) { category ->
+//                ButtonCategory(
+//                    btnTitle = category,
+//                    onCategoryClick = { clickedCategory ->
+//                        selectCategory = clickedCategory
+//                    },
+//                    isSelected = category == selectCategory
+//                )
+//            }
+//        }
         TitleTextField("Description")
         OutlinedTextField(
             value = description,
@@ -133,7 +144,7 @@ fun TaskScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
-                .padding(top = 4.dp)
+                .padding(top = 4.dp, bottom = 32.dp)
                 .border(
                     width = 2.dp, color = Color.LightGray, shape = RoundedCornerShape(14.dp)
                 ),
@@ -141,42 +152,31 @@ fun TaskScreen(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             singleLine = false,
         )
-
-    }
-}
-
-
-@Composable
-fun headerTask(titleHeader: String, navController: NavController) {
-    Box(
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        IconButton(
+        Button(
             onClick = {
-                navController.popBackStack()
+
             },
             modifier = Modifier
-                .clip(RoundedCornerShape(18.dp))
-                .background(color = Color.LightGray)
-                .align(Alignment.CenterStart)
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            shape = RoundedCornerShape(12.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary
+            )
         ) {
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Back",
+            Text(
+                text = "SAVE",
+                style = MaterialTheme.typography.titleSmall.copy(
+                    fontWeight = FontWeight.SemiBold
+                ),
+                color = Color.White,
+                modifier = Modifier.padding(6.dp),
             )
         }
-        Text(
-            text = titleHeader,
-            style = MaterialTheme.typography.titleMedium.copy(
-                color = Color.Black
-            ),
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Center)
-        )
+
     }
 }
+
 
 @Composable
 fun TitleTextField(title: String) {
@@ -198,7 +198,7 @@ fun TaskScreenPreview() {
             modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
         ) {
             val navController = rememberNavController()
-            TaskScreen(navController )
+            TaskScreen(navController)
         }
     }
 }

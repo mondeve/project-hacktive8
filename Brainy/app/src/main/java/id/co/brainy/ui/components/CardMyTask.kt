@@ -28,7 +28,8 @@ fun CardMyTask(
     title: String,
     category: String,
     desc: String,
-    time: String
+    time: String,
+    modifier: Modifier = Modifier
 ) {
     ElevatedCard(
 //        elevation = CardDefaults.cardElevation(
@@ -39,7 +40,7 @@ fun CardMyTask(
                 alpha = 0.6f
             )
         ),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(150.dp)
     ) {

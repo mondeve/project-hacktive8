@@ -125,7 +125,11 @@ fun HomeScreen(
                 title = "Tugas harian",
                 category = "Academy",
                 desc = "Menyala tugas",
-                time = "10 hours"
+                time = "10 hours",
+                modifier = Modifier
+                    .clickable {
+                        navController.navigate("DetailTask")
+                    }
             )
 
 

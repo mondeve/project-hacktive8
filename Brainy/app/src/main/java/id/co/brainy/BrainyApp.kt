@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import id.co.brainy.ui.screen.auth.LoginScreen
 import id.co.brainy.ui.screen.auth.RegisterScreen
 import id.co.brainy.ui.screen.home.HomeScreen
+import id.co.brainy.ui.screen.task.DetailTaskScreen
 import id.co.brainy.ui.screen.task.TaskScreen
 
 @Composable
@@ -26,6 +27,9 @@ fun BrainyApp(){
         }
         composable("task"){
             TaskScreen(navController)
+        }
+        composable("DetailTask") {
+            DetailTaskScreen(navController)
         }
 
     }
