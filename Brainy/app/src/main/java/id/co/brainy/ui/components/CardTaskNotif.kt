@@ -3,6 +3,7 @@ package id.co.brainy.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,55 +21,52 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun CardTaskNotif(
     title: String,
     category: String,
-    desc: String,
-    time: String
+    modifier: Modifier = Modifier
 ) {
     ElevatedCard(
-//        elevation = CardDefaults.cardElevation(
-//            defaultElevation = 6.dp
-//        ),
         colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondary.copy(
-                alpha = 0.6f
-            )
+            containerColor = MaterialTheme.colorScheme.secondary.copy(alpha = 0.6f)
         ),
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(100.dp)
-
+            .height(64.dp), // Adjusted to match the image height
+        shape = RoundedCornerShape(24.dp) // Optional: smoother round
     ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        fontWeight = FontWeight.SemiBold,
-                        color = Color.White,
-                    )
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 20.dp), // internal padding for breathing room
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleMedium.copy(
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    fontSize = 18.sp // Closer match to the image
                 )
-                Text(
-                    text = category,
-                    modifier = Modifier
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(color = MaterialTheme.colorScheme.primary.copy(
-                        ))
-                        .padding(horizontal = 8.dp, vertical = 4.dp),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.tertiary
-                    ),
+            )
+            Text(
+                text = category,
+                modifier = Modifier
+                    .clip(RoundedCornerShape(50)) // pill shape
+                    .background(MaterialTheme.colorScheme.primary.copy())
+                    .padding(horizontal = 12.dp, vertical = 6.dp),
+                style = MaterialTheme.typography.bodySmall.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color(0xFFFF9900) // orange color as seen in image
                 )
-            }
+            )
         }
     }
+}
 
 
 
@@ -79,8 +77,6 @@ fun CardTaskNotif(
 fun CardTaskNotifPreview() {
     CardTaskNotif(
         title = "Task",
-        category = "Category",
-        time = "this time",
-        desc = "this is description"
+        category = "Category"
     )
 }

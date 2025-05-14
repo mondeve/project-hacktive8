@@ -10,7 +10,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -25,124 +27,72 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import id.co.brainy.ui.components.CardMyTask
 import id.co.brainy.ui.components.CardTaskItem
+import id.co.brainy.ui.components.CardTaskNotif
+import id.co.brainy.ui.components.headerTask
 import id.co.brainy.ui.theme.BrainyTheme
 
 
 @Composable
 fun NotifScreen(navController: NavController) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 24.dp, vertical = 16.dp),
 
-    Scaffold(
-
-    ) { innerPading ->
-
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPading)
-                .padding(horizontal = 16.dp),
         ) {
-
-            HeaderNotif("Notification")
-            Spacer(modifier = Modifier.height(0.dp))
-            CardMyTask(
-                title = "Tugas harian",
-                category = "Academy",
-                desc = "Menyala tugas",
-                time = "10 hours"
+            headerTask(
+                titleHeader = "Notification",
+                navController = navController
             )
+            Spacer(modifier = Modifier.height(31.dp))
+            TitleText("Yesterday")
+            CardTaskNotif(
+                title = "Tugas harian",
+                category = "Academy"
+            )
+            TimeText("21 Apr","13:00")
             Spacer(modifier = Modifier.height(16.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                CardTaskItem(
-                    title = "Work",
-                    count = 5,
-                    modifier = Modifier
-                        .weight(1f)
-                        .clickable {
-
-                        }
-                )
-                CardTaskItem(
-                    title = "Academy",
-                    count = 5,
-                    modifier = Modifier
-                        .weight(1f)
-                        .clickable {
-
-                        }
-                )
-            }
-//        Spacer(modifier = Modifier.height(16.dp))
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween,
-            ) {
-                Text(
-                    text = "On Going",
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.tertiary
-                    )
-                )
-                Text(
-                    text = "See All",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontSize = 14.sp,
-                    ),
-                    textDecoration = TextDecoration.Underline
-                )
-            }
         }
     }
-}
+
+
 
 @Composable
-fun HeaderNotif(user: String) {
+fun TitleText(title: String) {
+    Text(
+        text = title, style = MaterialTheme.typography.titleMedium.copy(
+            fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.tertiary
+        ), modifier = Modifier.padding(start = 8.dp, bottom = 4.dp)
+    )
+}
+@Composable
+fun TimeText(date: String, time: String) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 20.dp),
+        modifier = Modifier.padding(start = 8.dp, bottom = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        IconButton(
-            onClick = {
-                //navController.popBackStack()
-            },
-            modifier = Modifier
-                .clip(RoundedCornerShape(18.dp))
-                .background(color = Color.LightGray)
-                .align(Alignment.CenterVertically)
-        ) {
-            Icon(
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Back"
-            )
-        }
         Text(
-            text = user,
-            style = MaterialTheme.typography.titleLarge.copy(
-                fontSize = 36.sp,
-                ),
-            modifier = Modifier
-                .weight(1f)
-                .align(alignment = Alignment.CenterVertically)
+            text = "$date, ",
+            style = MaterialTheme.typography.bodySmall.copy(
+                color = MaterialTheme.colorScheme.tertiary
+            )
+        )
+        Text(
+            text = time,
+            style = MaterialTheme.typography.bodySmall.copy(
+                color = MaterialTheme.colorScheme.tertiary
+            )
         )
     }
 }
+
+
 
 
 @Preview(showBackground = true)
