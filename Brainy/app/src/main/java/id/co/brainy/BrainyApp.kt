@@ -9,6 +9,7 @@ import id.co.brainy.ui.screen.auth.RegisterScreen
 import id.co.brainy.ui.screen.home.HomeScreen
 import id.co.brainy.ui.screen.notif.NotifScreen
 import id.co.brainy.ui.screen.task.DetailTaskScreen
+import id.co.brainy.ui.screen.task.MyTaskScreen
 import id.co.brainy.ui.screen.task.TaskScreen
 
 @Composable
@@ -34,6 +35,9 @@ fun BrainyApp(){
         }
         composable("Notif") {
             NotifScreen(navController)
+        }
+        composable("MyTask") {
+            MyTaskScreen(navController)
         }
 
     }

@@ -69,7 +69,7 @@ fun HomeScreen(
                 count = 10,
                 modifier = Modifier
                     .clickable {
-
+                        navController.navigate("MyTask")
                     }
             )
             Spacer(modifier = Modifier.height(16.dp))
