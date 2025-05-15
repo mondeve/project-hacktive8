@@ -1,4 +1,4 @@
-package id.co.brainy.model
+package id.co.brainy.data.model
 
 data class MyTask(
     val title: String,

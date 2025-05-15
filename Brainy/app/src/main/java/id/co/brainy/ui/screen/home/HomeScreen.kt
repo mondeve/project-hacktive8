@@ -26,7 +26,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,6 +34,7 @@ import androidx.navigation.compose.rememberNavController
 import id.co.brainy.R
 import id.co.brainy.ui.components.CardMyTask
 import id.co.brainy.ui.components.CardTaskItem
+import id.co.brainy.ui.components.FilterTask
 import id.co.brainy.ui.theme.BrainyTheme
 
 
@@ -97,11 +97,10 @@ fun HomeScreen(
                         }
                 )
             }
-//        Spacer(modifier = Modifier.height(16.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 8.dp, vertical = 16.dp),
+                    .padding(horizontal = 8.dp, vertical = 12.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
@@ -112,13 +111,14 @@ fun HomeScreen(
                         color = MaterialTheme.colorScheme.tertiary
                     )
                 )
-                Text(
-                    text = "See All",
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontSize = 14.sp,
-                    ),
-                    textDecoration = TextDecoration.Underline
-                )
+//                Text(
+//                    text = "See All",
+//                    style = MaterialTheme.typography.bodyMedium.copy(
+//                        fontSize = 14.sp,
+//                    ),
+//                    textDecoration = TextDecoration.Underline,
+//                )
+                FilterTask()
             }
 
             CardMyTask(

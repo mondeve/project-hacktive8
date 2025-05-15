@@ -1,6 +1,6 @@
-package id.co.brainy.data
+package id.co.brainy.data.repository
 
-import id.co.brainy.model.MyTask
+import id.co.brainy.data.model.MyTask
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
