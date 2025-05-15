@@ -62,7 +62,7 @@ fun HomeScreen(
                 .padding(innerPading)
                 .padding(horizontal = 16.dp),
         ) {
-            HeaderHome("Hi Mondo")
+            HeaderHome("Hi Mondo", navController)
             Spacer(modifier = Modifier.height(20.dp))
             CardTaskItem(
                 title = "Task",
@@ -138,7 +138,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun HeaderHome(user: String) {
+fun HeaderHome(user: String, navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -158,7 +158,7 @@ fun HeaderHome(user: String) {
             contentDescription = "Notifications Icon",
             modifier = Modifier
                 .clickable {
-
+                    navController.navigate("Notif")
                 }
         )
         Spacer(modifier = Modifier.width(14.dp))
