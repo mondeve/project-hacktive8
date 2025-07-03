@@ -1,4 +1,4 @@
-package id.co.brainy
+package id.co.brainy.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

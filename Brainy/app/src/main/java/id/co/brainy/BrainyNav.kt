@@ -1,9 +1,11 @@
 package id.co.brainy
 
+import android.app.Application
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.HiltAndroidApp
 import id.co.brainy.ui.screen.auth.LoginScreen
 import id.co.brainy.ui.screen.auth.RegisterScreen
 import id.co.brainy.ui.screen.home.HomeScreen
@@ -13,7 +15,7 @@ import id.co.brainy.ui.screen.task.MyTaskScreen
 import id.co.brainy.ui.screen.task.TaskScreen
 
 @Composable
-fun BrainyApp(){
+fun BrainyNav(){
 
     val navController = rememberNavController()
 
@@ -43,3 +45,7 @@ fun BrainyApp(){
     }
 
 }
+
+
+@HiltAndroidApp
+class BrainyApp : Application()
