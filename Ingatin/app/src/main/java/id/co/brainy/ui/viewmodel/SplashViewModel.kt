@@ -3,7 +3,7 @@ package id.co.brainy.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import id.co.brainy.data.utils.UserPreferences
+import id.co.brainy.data.repository.AuthRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel@Inject constructor(
-   private val pref: UserPreferences
+   private val authRepository: AuthRepository
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(true)
@@ -25,7 +25,7 @@ class SplashViewModel@Inject constructor(
     init {
         viewModelScope.launch {
             delay(3000L)
-            val token = pref.getToken.first() // mengambil token sekali
+            val token = authRepository.getToken().first()
             _startDestination.value = if (token.isNullOrEmpty()) "login" else "home"
             _isLoading.value = false
         }
