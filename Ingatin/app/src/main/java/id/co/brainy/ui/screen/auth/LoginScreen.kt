@@ -1,5 +1,6 @@
 package id.co.brainy.ui.screen.auth
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,6 +20,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,18 +35,39 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import id.co.brainy.ui.common.UiState
 import id.co.brainy.ui.components.CustomTextField
 import id.co.brainy.ui.theme.BrainyTheme
+import id.co.brainy.ui.viewmodel.AuthViewModel
 
 @Composable
 fun LoginScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: AuthViewModel = hiltViewModel()
 ) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val loginState by viewModel.loginState.collectAsState()
+
+    LaunchedEffect(loginState) {
+        when (loginState){
+            is UiState.Success -> {
+                Log.d("LoginScreen", "Email: $email, Password: $password")
+                navController.navigate("home")
+            }
+            is UiState.Error -> {
+
+            }
+            is UiState.Loading ->{
+
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -91,10 +115,9 @@ fun LoginScreen(
         Button(
             onClick = {
                 if (email.isNotBlank() && password.isNotBlank()) {
-                    println("Login success with email: $email")
-                    navController.navigate("home")
+                    viewModel.login(email, password)
                 } else {
-                    println("Email or password is empty")
+                    Log.d("LoginScreen", "Email atau password tidak boleh kosong")
                 }
             },
             modifier = Modifier

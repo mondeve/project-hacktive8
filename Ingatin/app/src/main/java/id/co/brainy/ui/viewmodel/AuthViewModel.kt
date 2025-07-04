@@ -25,7 +25,7 @@ class AuthViewModel @Inject constructor(
 				authRepository.login(email, password) { result ->
 						result
 								.onSuccess { user ->
-										_loginState.value = UiState.Success(user)
+										_loginState.value = UiState.Success(user )
 								}
 								.onFailure { e ->
 										_loginState.value = UiState.Error(e.message ?: "Terjadi kesalahan")

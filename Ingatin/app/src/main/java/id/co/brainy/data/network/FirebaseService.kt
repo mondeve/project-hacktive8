@@ -49,23 +49,37 @@ class FirebaseService @Inject constructor(
 		fun login(
 				email: String,
 				password: String,
-				onResult: (Result<UserProfile>) -> Unit
+				onResult: (Result<Pair<UserProfile, String>>) -> Unit
 		) {
 				firebaseAuth.signInWithEmailAndPassword(email, password)
 						.addOnCompleteListener { task ->
 								if (task.isSuccessful) {
 										val user = task.result.user
 										if (user != null) {
-												val profile = UserProfile(
-														name = user.displayName ?: "",
-														email = user.email ?: "",
-														uId = user.uid
-												)
-												onResult(Result.success(profile))
+												user.getIdToken(true)
+														.addOnCompleteListener { mytoken ->
+																if (mytoken.isSuccessful) {
+																		val token = mytoken.result?.token ?: ""
+																		val profile = UserProfile(
+																				name = user.displayName ?: "",
+																				email = user.email ?: "",
+																				uId = user.uid
+																		)
+																		onResult(Result.success(Pair(profile, token)))
+																		Log.d(TAG, "Login berhasil\n$profile\nToken: $token")
+																} else {
+																		val exception =
+																				mytoken.exception ?: Exception("Gagal mengambil token")
+																		onResult(Result.failure(exception))
+																}
+														}
 										} else {
-												val exception = task.exception ?: Exception("Login gagal")
+												val exception = task.exception ?: Exception("User Null saat login")
 												onResult(Result.failure(exception))
 										}
+								} else {
+										val exception = task.exception ?: Exception("Login gagal")
+										onResult(Result.failure(exception))
 								}
 						}
 		}
